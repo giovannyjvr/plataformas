@@ -1,0 +1,67 @@
+# ==== Secret ====
+apiVersion: v1
+kind: Secret
+metadata:
+  name: account-service-secret
+type: Opaque
+data:
+  # Chave secreta (ex: JWT_KEY ou credenciais de banco) em base64
+  SECRET_KEY: "REPLACE_WITH_BASE64"
+
+---
+# ==== ConfigMap ====
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: account-service-config
+data:
+  SPRING_PROFILES_ACTIVE: "prod"
+  # Adicione outras variáveis de ambiente, se necessário
+
+---
+# ==== Deployment ====
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: account-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: account-service
+  template:
+    metadata:
+      labels:
+        app: account-service
+    spec:
+      containers:
+        - name: account-service
+          image: yourdockerhubusername/account-service:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              valueFrom:
+                configMapKeyRef:
+                  name: account-service-config
+                  key: SPRING_PROFILES_ACTIVE
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: account-service-secret
+                  key: SECRET_KEY
+
+---
+# ==== Service ====
+apiVersion: v1
+kind: Service
+metadata:
+  name: account-service-service
+spec:
+  selector:
+    app: account-service
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: ClusterIP
