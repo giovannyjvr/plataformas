@@ -1,0 +1,24 @@
+site_name: Projeto Microserviços INSper
+site_description: Documentação dos componentes do projeto
+site_author: Maria Clara Nadim Martiniano
+repo_url: https://github.com/seu-usuario/seu-repositorio
+theme:
+  name: material
+  palette:
+    primary: teal
+    accent: amber
+nav:
+  - Home: index.md
+  - Auth Service: auth_service.md
+  - Product Service: product_service.md
+  - Portal: portal.md
+  - Order Service: order_service.md
+  - Docker e Kubernetes: docker_k8s.md
+  - FAQ: faq.md
+plugins:
+  - search
+markdown_extensions:
+  - admonition
+  - codehilite
+  - toc:
+      permalink: true
