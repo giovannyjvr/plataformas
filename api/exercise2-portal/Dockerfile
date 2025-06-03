@@ -1,6 +1,5 @@
 # Etapa 1: build com Maven (tag válida: maven:3.8.8-openjdk-17-slim)
-FROM maven:3.8.8-openjdk-17-slim AS build
-
+FROM maven:3.8.8-jdk-17-slim AS build
 WORKDIR /app
 
 # Copia pom.xml e todo o código-fonte
@@ -11,8 +10,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Etapa 2: runtime leve
-FROM openjdk:17-jdk-slim
-
+FROM openjdk:17-slim
 WORKDIR /app
 
 # Copia o JAR gerado

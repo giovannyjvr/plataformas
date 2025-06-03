@@ -2,10 +2,6 @@
 # docker-compose.yml
 # -----------------------------------------------------------
 
-# OBS.: A linha "version" é opcional nas versões recentes do Docker Compose.
-# Se quiser remover o aviso, basta apagar a linha "version: '3.8'" abaixo.
-version: "3.8"
-
 services:
 
   ##############################################################################
@@ -23,8 +19,7 @@ services:
       - EXCHANGE_API_JWT_SECRET=${EXCHANGE_API_JWT_SECRET:-minhaChaveExchange}
     ports:
       - "8000:8000"
-    # O Exchange API não depende de "auth" nem de "product" para iniciar, então deixamos sem depends_on.
-    # Se mais tarde precisar obrigar a iniciar depois de auth/product, descomente e use lista:
+    # Se o Exchange API precisar aguardar apis externas (auth/product), descomente:
     # depends_on:
     #   - auth
     #   - product
@@ -112,8 +107,8 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      # Mapeie o seu prometheus.yml (na raiz ou onde preferir) para dentro do container:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      # Coloque o caminho entre aspas para o Docker encontrar corretamente o arquivo
+      - "./prometheus.yml:/etc/prometheus/prometheus.yml:ro"
     depends_on:
       - auth
       - product

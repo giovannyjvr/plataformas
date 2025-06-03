@@ -1,5 +1,6 @@
-# Etapa 1: build com Maven (tag válida: maven:3.8.8-openjdk-17-slim)
-FROM maven:3.8.8-openjdk-17-slim AS build
+# Etapa 1: build com Maven
+#   trocamos para um tag que existe: maven:3.8.8-jdk-17-slim
+FROM maven:3.8.8-jdk-17-slim AS build
 
 WORKDIR /app
 
@@ -11,14 +12,14 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Etapa 2: runtime leve com OpenJDK
-FROM openjdk:17-jdk-slim
+#   trocamos para openjdk:17-slim (que é o tag válido)
+FROM openjdk:17-slim
 
 WORKDIR /app
 
 # Copia o JAR gerado
 COPY --from=build /app/target/*.jar app.jar
 
-# No docker-compose, product expõe a porta 8002
 EXPOSE 8002
 
 ENTRYPOINT ["java", "-jar", "app.jar"]

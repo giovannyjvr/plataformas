@@ -1,5 +1,7 @@
 package com.insper.portal.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.insper.portal.model.ProductDto;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,11 +52,17 @@ public class PortalController {
                 .postForEntity(AUTH_URL + "/login", request, String.class);
 
             if (response.getStatusCode() == HttpStatus.OK) {
-                // Supondo que o Auth Service retorna {"access_token":"...","token_type":"bearer"}
                 String body = response.getBody();
-                // Aqui você pode parsear o JSON para extrair o token (pode usar Jackson ou manualmente)
-                // Para simplificar, vamos supor que o token esteja direto na string ou use Jackson.
-                String token = /* extrair "access_token" do body */;
+                
+                // ========================
+                // Aqui fazemos o parsing JSON:
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode node = mapper.readTree(body);
+                // Supondo que o Auth Service retorne algo como:
+                // { "access_token":"ABC123", "token_type":"bearer", ... }
+                String token = node.get("access_token").asText();
+                // ========================
+
                 session.setAttribute("TOKEN", token);
                 return "redirect:/products";
             } else {

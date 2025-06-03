@@ -1,0 +1,34 @@
+# ---------- 1) Use como base o OpenJDK 17 slim ----------
+FROM openjdk:17-slim
+
+# ---------- 2) Defina a versão do Maven que queremos instalar ----------
+ARG MAVEN_VERSION=3.8.8
+ARG USER_HOME_DIR="/root"
+# (Você não precisa dos ARGs de SHA/URL se quiser baixar direto do repositório Apache)
+
+# ---------- 3) Instale dependências mínimas e faça o download do Maven ----------
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends curl tar \
+    \
+    # Cria pasta para o Maven
+    && mkdir -p /usr/share/maven /usr/share/maven/ref \
+    \
+    # Baixa o tarball do Maven 3.8.8 e extrai em /usr/share/maven
+    && curl -fsSL https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
+       | tar xz -C /usr/share/maven --strip-components=1 \
+    \
+    # Cria um link simbólico para o executável mvn
+    && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn \
+    \
+    # Limpa cache do apt
+    && rm -rf /var/lib/apt/lists/*
+
+# ---------- 4) Defina variáveis de ambiente do Maven ----------
+ENV MAVEN_HOME=/usr/share/maven
+ENV MAVEN_CONFIG="$USER_HOME_DIR/.m2"
+
+# (Opcional) Defina um diretório de trabalho padrão
+WORKDIR /app
+
+# Comando padrão (apenas para verificar se está funcionando)
+CMD ["mvn", "--version"]
