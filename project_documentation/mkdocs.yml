@@ -1,12 +1,14 @@
 site_name: Projeto Microserviços INSper
 site_description: Documentação dos componentes do projeto
-site_author: Maria Clara Nadim Martiniano
-repo_url: https://github.com/seu-usuario/seu-repositorio
+site_author: Seu Nome – Grupo Full Stack 2025
+repo_url: https://github.com/seu-usuario/plataformas-main
+
 theme:
   name: material
   palette:
     primary: teal
     accent: amber
+
 nav:
   - Home: index.md
   - Auth Service: auth_service.md
@@ -14,9 +16,13 @@ nav:
   - Portal: portal.md
   - Order Service: order_service.md
   - Docker e Kubernetes: docker_k8s.md
+  - Gargalos: gargalos.md
+  - Apresentação: apresentacao.md
   - FAQ: faq.md
+
 plugins:
   - search
+
 markdown_extensions:
   - admonition
   - codehilite

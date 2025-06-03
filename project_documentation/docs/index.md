@@ -1,16 +1,20 @@
-# Bem-vindo à Documentação do Projeto
+# Documentação do Projeto Microserviços – INSper
 
-Este site reúne a documentação de todos os componentes dos *checkpoints Individual*:
-- **Auth Service** (autenticação JWT)
-- **Product Service** (CRUD de produtos)
-- **Portal** (interface web que consome Auth e Product)
-- **Order Service** (Exercício 3)
-- **Docker e Kubernetes (Orquestração)**
+**Aluno:** Giovanny Russo
 
-Acesse as seções usando o menu lateral.
+## Visão Geral do Projeto
+
+Este repositório reúne todos os **Exercícios Individuais** (1–5) solicitados no curso de Plataforma.  
+Abaixo, você encontrará:
+- Descrição de cada exercício e seus endpoints  
+- Código-fonte de cada microserviço  
+- Pipeline de CI/CD (Jenkins)  
+- Manifestos Kubernetes (Orquestração)  
+- Documentação geral, gargalos, apresentação e vídeo de demonstração
 
 ---
+## Links dos Repositórios
 
-## Como navegar
-
-Utilize os links ao lado para acessar detalhes de cada serviço ou componente.
+- **Repositório principal (este):**  
+    https://github.com/giovannyjvr/plataformas  
+    

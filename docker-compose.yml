@@ -1,0 +1,157 @@
+# -----------------------------------------------------------
+# docker-compose.yml
+# -----------------------------------------------------------
+
+# OBS.: A linha "version" é opcional nas versões recentes do Docker Compose.
+# Se quiser remover o aviso, basta apagar a linha "version: '3.8'" abaixo.
+version: "3.8"
+
+services:
+
+  ##############################################################################
+  # 1) Exchange API (FastAPI em Python)                                         #
+  ##############################################################################
+  exchange:
+    build:
+      # Coloque o caminho entre aspas para lidar com o espaço no nome da pasta:
+      context: "./api/exchange-api"
+      dockerfile: Dockerfile
+    container_name: exchange-api
+    restart: unless-stopped
+    environment:
+      # Se o Exchange API usa JWT, mantenha esta variável. Caso contrário comente.
+      - EXCHANGE_API_JWT_SECRET=${EXCHANGE_API_JWT_SECRET:-minhaChaveExchange}
+    ports:
+      - "8000:8000"
+    # O Exchange API não depende de "auth" nem de "product" para iniciar, então deixamos sem depends_on.
+    # Se mais tarde precisar obrigar a iniciar depois de auth/product, descomente e use lista:
+    # depends_on:
+    #   - auth
+    #   - product
+
+  ##############################################################################
+  # 2) Auth Service (Spring Boot)                                               #
+  ##############################################################################
+  auth:
+    build:
+      context: "./api/exercise2-auth-service"
+      dockerfile: Dockerfile
+    container_name: auth-service
+    restart: unless-stopped
+    environment:
+      # Esta chave deve ser idêntica à que você usa no application.properties do Auth:
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+    ports:
+      - "8001:8001"
+
+  ##############################################################################
+  # 3) Product Service (Spring Boot)                                            #
+  ##############################################################################
+  product:
+    build:
+      context: "./api/exercise2-product-service"
+      dockerfile: Dockerfile
+    container_name: product-service
+    restart: unless-stopped
+    environment:
+      # Usamos a mesma chave do Auth Service para validar JWT:
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+    ports:
+      - "8002:8002"
+    depends_on:
+      - auth
+
+  ##############################################################################
+  # 4) Order Service (Spring Boot)                                              #
+  ##############################################################################
+  order:
+    build:
+      context: "./api/exercise3-order-service"
+      dockerfile: Dockerfile
+    container_name: order-service
+    restart: unless-stopped
+    environment:
+      # Mesma chave do Auth para validar JWT:
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      # Se o Order Service fizer chamada interna ao Product:
+      - PRODUCT_URL=http://product:8002
+      # Se precisar chamar o Auth em tempo de execução:
+      - AUTH_URL=http://auth:8001
+    ports:
+      - "8003:8003"
+    depends_on:
+      - auth
+      - product
+
+  ##############################################################################
+  # 5) Portal Service (Spring Boot + Thymeleaf)                                 #
+  ##############################################################################
+  portal:
+    build:
+      context: "./api/exercise2-portal"
+      dockerfile: Dockerfile
+    container_name: portal-service
+    restart: unless-stopped
+    environment:
+      # URLs internas (nome do serviço no Compose + porta):
+      - PORTAL_AUTH_URL=http://auth:8001
+      - PORTAL_PRODUCT_URL=http://product:8002
+    ports:
+      - "8004:8004"
+    depends_on:
+      - auth
+      - product
+
+  ##############################################################################
+  # 6) Prometheus (para coletar métricas)                                        #
+  ##############################################################################
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      # Mapeie o seu prometheus.yml (na raiz ou onde preferir) para dentro do container:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - auth
+      - product
+      - order
+      - portal
+
+  ##############################################################################
+  # 7) Grafana (para dashboards)                                                #
+  ##############################################################################
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      # Senha padrão do admin (login: admin / senha: admin)
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      # Persiste dados do Grafana (dashboards, banco interno, etc.)
+      - ./grafana:/var/lib/grafana
+      # Se você tiver datasources pré‐configurados, coloque aqui:
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+    depends_on:
+      - prometheus
+
+  ##############################################################################
+  # (Opcional) 8) Banco de dados Postgres (caso algum serviço precise)          #
+  ##############################################################################
+  # db:
+  #   image: postgres:latest
+  #   container_name: postgres-db
+  #   restart: unless-stopped
+  #   environment:
+  #     - POSTGRES_DB=${POSTGRES_DB:-store}
+  #     - POSTGRES_USER=${POSTGRES_USER:-store}
+  #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-store}
+  #   volumes:
+  #     - $VOLUME/postgres/store:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
