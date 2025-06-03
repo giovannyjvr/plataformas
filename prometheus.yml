@@ -1,0 +1,127 @@
+# prometheus.yml — Configuração completa para o seu stack Docker
+
+# -------------------------------------------------------
+# 1) Configurações globais
+# -------------------------------------------------------
+global:
+  # Intervalo padrão para “scrape” (coleta de métricas) de todos os jobs
+  scrape_interval: 15s
+
+  # Intervalo padrão para avaliação de regras (se houver)
+  evaluation_interval: 15s
+
+# -------------------------------------------------------
+# 2) Arquivos de regras (não obrigatórios — podem ficar comentados se você não usar)
+# -------------------------------------------------------
+rule_files:
+  # - "alert_rules.yml"
+  # - "recording_rules.yml"
+
+# -------------------------------------------------------
+# 3) Definição dos “scrape_configs” (jobs de coleta)
+# -------------------------------------------------------
+scrape_configs:
+
+  # -----------------------------------------------------
+  # 3.1) Coletar métricas do próprio Prometheus
+  # -----------------------------------------------------
+  - job_name: 'prometheus'          
+    # “honor_labels: true” impede que o Prometheus sobrescreva rótulos (labels) 
+    # vindos do próprio scrape
+    honor_labels: true             
+    static_configs:
+      - targets:
+          - 'localhost:9090'      # Ajuste se expôs Prometheus em outra porta
+
+  # -----------------------------------------------------
+  # 3.2) Coletar métricas do Auth‐Service (Spring Boot + Actuator)
+  # -----------------------------------------------------
+  - job_name: 'auth-service'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets:
+          - 'auth-service:8080'   # Deve bater com o nome do serviço no docker-compose
+
+  # -----------------------------------------------------
+  # 3.3) Coletar métricas do Exchange‐API (FastAPI + /metrics)
+  # -----------------------------------------------------
+  - job_name: 'exchange-api'
+    metrics_path: '/metrics'
+    static_configs:
+      - targets:
+          - 'exchange-api:8000'   # Ajuste a porta se for diferente no Compose
+    # Obs.: Para o FastAPI expor /metrics, você precisa ter instalado/integrado
+    #      algo como “prometheus-fastapi-instrumentator” ou “starlette_exporter”.
+    #      Se ainda não tiver esse endpoint, comente/remova esse bloco.
+
+  # -----------------------------------------------------
+  # 3.4) Coletar métricas do Order‐Service (Spring Boot + Actuator)
+  # -----------------------------------------------------
+  - job_name: 'order-service'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets:
+          - 'order-service:8080'  # Ajuste conforme porta real do container
+
+  # -----------------------------------------------------
+  # 3.5) Coletar métricas do Product‐Service (Spring Boot + Actuator)
+  # -----------------------------------------------------
+  - job_name: 'product-service'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets:
+          - 'product-service:8080'
+
+  # -----------------------------------------------------
+  # 3.6) Coletar métricas do Portal‐Service (Spring Boot + Actuator)
+  # -----------------------------------------------------
+  - job_name: 'portal-service'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets:
+          - 'portal-service:8080'
+
+  # -----------------------------------------------------
+  # 3.7) (Opcional) Coletar métricas do Grafana
+  # -----------------------------------------------------
+  - job_name: 'grafana'
+    metrics_path: '/api/prometheus'
+    static_configs:
+      - targets:
+          - 'grafana:3000'       # Se expuser o Grafana na porta 3000
+
+# -------------------------------------------------------
+# 4) Notas de uso
+# -------------------------------------------------------
+#
+# 1) Cada “job_name” acima precisa corresponder ao “service name” que você definiu
+#    no seu docker-compose.yml. Exemplo: se no compose você tem “services: auth-service: …”,
+#    então o target será “auth-service:8080”.
+#
+# 2) Verifique as portas de cada container:
+#    • Se alguma aplicação rodar em porta diferente (por ex. 8081 ou 8082), corrija aqui.
+#    • Se você usou “ports:” para mapear container→host, mas quer que o Prometheus
+#      scrape pela porta do host, então troque “auth-service:8080” por “localhost:<porta>”.
+#
+# 3) FastAPI normalmente não expõe métricas Prometheus por padrão. Se você não tiver
+#    instalado/configurado uma biblioteca que crie o endpoint “/metrics”, o Prometheus
+#    vai retornar 404. Nesse caso, comente ou remova o bloco “exchange-api” até que
+#    você integre algo como “prometheus-fastapi-instrumentator”.
+#
+# 4) Se, ao subir o Compose, der erro de “não encontrou arquivo”, garanta que o 
+#    prometheus.yml esteja NA MESMA PASTA que o docker-compose.yml e que no
+#    docker-compose você tenha algo como:
+#
+#    services:
+#      prometheus:
+#        image: prom/prometheus:latest
+#        container_name: prometheus
+#        ports:
+#          - "9090:9090"
+#        volumes:
+#          - ./prometheus.yml:/etc/prometheus/prometheus.yml
+#
+# 5) Depois de ajustar as portas e nomes, basta rodar:
+#       docker-compose up --build
+#    e acessar http://localhost:9090 para ver a interface web do Prometheus.
+#    Caso tudo corra bem, você verá nos “Targets” que todos os jobs estão “UP”.
