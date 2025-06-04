@@ -32,11 +32,20 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
             .authorizeRequests()
+                // 1) libera todo tráfego para autenticação (login) normal
                 .antMatchers("/api/auth/**").permitAll()
+                // 2) libera o endpoint de métricas do Prometheus
+                .antMatchers("/actuator/prometheus").permitAll()
+                // 3) libera health e info sem autenticação (opcional, mas recomendado)
+                .antMatchers("/actuator/health", "/actuator/info").permitAll()
+                // 4) TODO: se você quiser liberar mais actuator endpoints, coloque aqui
+                //    .antMatchers("/actuator/env", "/actuator/loggers").permitAll()
+                // 5) tudo o resto: requer autenticação via JWT
                 .anyRequest().authenticated()
             .and()
             .addFilterBefore(new JwtFilter(userDetailsService, jwtUtil), UsernamePasswordAuthenticationFilter.class)
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         return http.build();
     }
+
 }

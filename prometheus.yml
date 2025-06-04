@@ -42,18 +42,7 @@ scrape_configs:
       - targets:
           - 'auth-service:8080'   # Deve bater com o nome do serviço no docker-compose
 
-  # -----------------------------------------------------
-  # 3.3) Coletar métricas do Exchange‐API (FastAPI + /metrics)
-  # -----------------------------------------------------
-  - job_name: 'exchange-api'
-    metrics_path: '/metrics'
-    static_configs:
-      - targets:
-          - 'exchange-api:8000'   # Ajuste a porta se for diferente no Compose
-    # Obs.: Para o FastAPI expor /metrics, você precisa ter instalado/integrado
-    #      algo como “prometheus-fastapi-instrumentator” ou “starlette_exporter”.
-    #      Se ainda não tiver esse endpoint, comente/remova esse bloco.
-
+  
   # -----------------------------------------------------
   # 3.4) Coletar métricas do Order‐Service (Spring Boot + Actuator)
   # -----------------------------------------------------
