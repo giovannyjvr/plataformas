@@ -1,8 +1,7 @@
-site_name: Projeto Microserviços INSper
+site_name: Projeto Microserviços Insper
 site_description: Documentação dos componentes do projeto
-site_author: Seu Nome – Grupo Full Stack 2025
-repo_url: https://github.com/seu-usuario/plataformas-main
-
+site_author: Gioavnny Russo
+repo_url: https://github.com/giovannyjvr/plataformas
 theme:
   name: material
   palette:
