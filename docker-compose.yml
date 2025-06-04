@@ -1,31 +1,105 @@
-version: '3.8'
+version: "3.8"
 
 services:
 
   ##############################################################################
   # 1) Auth Service (Spring Boot)
   ##############################################################################
-  auth:
+  auth-service:
     build:
-      context: "./api/exercise2-auth-service"
+      context: "./api/exercise2-auth-service"   # <-- antes era "./exercise2-auth-service"
       dockerfile: Dockerfile
     container_name: auth-service
     restart: unless-stopped
     environment:
-      # Esta variável deve bater com o application.properties do Auth:
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
     ports:
-      - "8080:8080"
+      - "8000:8080"
     networks:
+      - plataformas_net
       - monitoring
-    # Se depender de outros serviços (Ex.: MySQL, produto, etc.), adicione aqui:
-    # depends_on:
-    #   - product
-
- 
 
   ##############################################################################
-  # 3) Prometheus (para coletar métricas)
+  # 2) Product Service (Spring Boot, H2 in memory)
+  ##############################################################################
+  product-service:
+    build:
+      context: "./api/exercise2-product-service"   # <-- antes era "./exercise2-product-service"
+      dockerfile: Dockerfile
+    container_name: product-service
+    restart: unless-stopped
+    ports:
+      - "8001:8080"
+    networks:
+      - plataformas_net
+      - monitoring
+
+  ##############################################################################
+  # 3) Customer Service (Spring Boot ou outro stack)
+  ##############################################################################
+  customer-service:
+    build:
+      context: "./api/exercise2-portal"   # <-- antes era "./exercise2-customer-service"
+      dockerfile: Dockerfile
+    container_name: customer-service
+    restart: unless-stopped
+    ports:
+      - "8002:8080"
+    networks:
+      - plataformas_net
+      - monitoring
+
+  ##############################################################################
+  # 4) Order Service (Spring Boot)
+  ##############################################################################
+  order-service:
+    build:
+      context: "./api/exercise3-order-service"   # <-- antes era "./exercise3-order-service"
+      dockerfile: Dockerfile
+    container_name: order-service
+    restart: unless-stopped
+    depends_on:
+      - auth-service
+      - product-service
+      - customer-service
+    ports:
+      - "8003:8080"
+    networks:
+      - plataformas_net
+      - monitoring
+
+
+  portal-service:
+    build:
+      context: ./api/exercise2-portal
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+
+  ##############################################################################
+  # 5) Gateway (exchange-api, FastAPI)
+  ##############################################################################
+  gateway:
+    build:
+      context: "./api/exchange-api"   # <-- antes era "./exchange-api"
+      dockerfile: Dockerfile
+    container_name: gateway
+    restart: unless-stopped
+    depends_on:
+      - auth-service
+      - product-service
+      - customer-service
+      - order-service
+    ports:
+      - "8004:8000"
+    networks:
+      - plataformas_net
+      - monitoring
+
+  ##############################################################################
+  # 6) Prometheus (para coletar métricas de todos os serviços)
   ##############################################################################
   prometheus:
     image: prom/prometheus:latest
@@ -37,11 +111,16 @@ services:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
     networks:
       - monitoring
+      - plataformas_net
     depends_on:
-      - auth
+      - auth-service
+      - product-service
+      - customer-service
+      - order-service
+      - gateway
 
   ##############################################################################
-  # 4) Grafana (para exibir dashboards)
+  # 7) Grafana (para visualizar dashboards)
   ##############################################################################
   grafana:
     image: grafana/grafana:latest
@@ -52,8 +131,6 @@ services:
       - "3000:3000"
     volumes:
       - ./grafana:/var/lib/grafana
-      # Caso queira configurar a Data Source “prometheus” automaticamente,
-      # crie um arquivo YAML em ./grafana/provisioning/datasources/.
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro
     networks:
       - monitoring
@@ -61,5 +138,8 @@ services:
       - prometheus
 
 networks:
+  plataformas_net:
+    driver: bridge
+
   monitoring:
     driver: bridge
