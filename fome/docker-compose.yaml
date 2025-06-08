@@ -1,0 +1,172 @@
+##################################################################
+# docker-compose.yml
+#
+# Orquestra:
+#   • PostgreSQL “db”
+#   • account-service (Spring Boot)
+#   • product-service (Spring Boot)
+#   • auth-service    (Spring Boot)
+#   • order-service   (Spring Boot)
+#   • exchange-service (FastAPI)
+#   • gateway-service (Spring Cloud Gateway)
+##################################################################
+
+services:
+
+  ################################################################
+  # 1) Banco de dados PostgreSQL
+  ################################################################
+  db:
+    image: postgres:15
+    container_name: store_db
+    restart: always
+    environment:
+      POSTGRES_DB:       ${POSTGRES_DB:-store}
+      POSTGRES_USER:     ${POSTGRES_USER:-store}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-store}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER:-store}"]
+      interval: 5s
+      timeout: 2s
+      retries: 5
+
+  ################################################################
+  # 2) Account Service (Java)
+  ################################################################
+  account-service:
+    build:
+      context: ./account-service
+      dockerfile: Dockerfile
+    container_name: store_account
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL:      jdbc:postgresql://db:5432/${POSTGRES_DB:-store}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-store}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-store}
+      SERVER_PORT:               8084
+    ports:
+      - "8084:8084"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  ################################################################
+  # 3) Product Service (Java)
+  ################################################################
+  product-service:
+    build:
+      context: ./product-service
+      dockerfile: Dockerfile
+    container_name: store_product
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL:      jdbc:postgresql://db:5432/${POSTGRES_DB:-store}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-store}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-store}
+      SERVER_PORT:               8083
+    ports:
+      - "8083:8083"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  ################################################################
+  # 4) Auth Service (Java)
+  ################################################################
+  auth-service:
+    build:
+      context: ./p-auth-service
+      dockerfile: Dockerfile
+    container_name: store_auth
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL:      jdbc:postgresql://db:5432/${POSTGRES_DB:-store}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-store}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-store}
+      JWT_SECRET_KEY:            ${JWT_SECRET_KEY:-VerySecretKey123}
+      SERVER_PORT:               8081
+    ports:
+      - "8081:8081"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  ################################################################
+  # 5) Order Service (Java)
+  ################################################################
+  order-service:
+    build:
+      context: ./order-service
+      dockerfile: Dockerfile
+    container_name: store_order
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL:      jdbc:postgresql://db:5432/${POSTGRES_DB:-store}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-store}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-store}
+      JWT_SECRET_KEY:            ${JWT_SECRET_KEY:-VerySecretKey123}
+      SERVER_PORT:               8082
+      PRODUCT_SERVICE_URL:       http://product-service:8083
+      ACCOUNT_SERVICE_URL:       http://account-service:8084
+    ports:
+      - "8082:8082"
+    depends_on:
+      db:
+        condition: service_healthy
+      auth-service:
+        condition: service_started
+      product-service:
+        condition: service_started
+      account-service:
+        condition: service_started
+
+  ################################################################
+  # 6) Exchange Service (Python/FastAPI)
+  ################################################################
+  exchange-service:
+    build:
+      context: ./exchange-service
+      dockerfile: Dockerfile
+    container_name: store_exchange
+    restart: always
+    environment:
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-VerySecretKey123}
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      auth-service:
+        condition: service_started
+
+  ################################################################
+  # 7) Gateway Service (Spring Cloud Gateway)
+  ################################################################
+  gateway-service:
+    build:
+      context: ./gateway-service
+      dockerfile: Dockerfile
+    container_name: store_gateway
+    restart: always
+    environment:
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-VerySecretKey123}
+      SERVER_PORT:   8080
+    ports:
+      - "8080:8080"
+    depends_on:
+      auth-service:
+        condition: service_started
+      product-service:
+        condition: service_started
+      account-service:
+        condition: service_started
+      order-service:
+        condition: service_started
+      exchange-service:
+        condition: service_started
+
+# Declaração do volume nomeado ao final do arquivo
+volumes:
+  postgres-data:
