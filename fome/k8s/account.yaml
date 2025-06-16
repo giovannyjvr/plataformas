@@ -1,0 +1,55 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: account
+  labels:
+    app: account
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: account
+  template:
+    metadata:
+      labels:
+        app: account
+    spec:
+      containers:
+      - name: account
+        image: 767397705738.dkr.ecr.sa-east-1.amazonaws.com/plataforma-account-service:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DATABASE_HOST
+          value: postgres
+        - name: DATABASE_PORT
+          value: "5432"
+        - name: DATABASE_NAME
+          value: store
+        - name: DATABASE_USER
+          value: store
+        - name: DATABASE_PASSWORD
+          value: store
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "200Mi"
+          limits:
+            cpu: "200m"
+            memory: "300Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: account
+  labels:
+    app: account
+spec:
+  type: LoadBalancer
+  selector:
+    app: account
+  ports:
+  - port: 8080
+    targetPort: 8080

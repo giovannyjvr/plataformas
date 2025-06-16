@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: k6-script
+data:
+  loadtest.js: |
+    import http from 'k6/http';
+    import { sleep, check } from 'k6';
+
+    export let options = {
+      vus: 50,
+      duration: '30s',
+      thresholds: {
+        http_req_failed: ['rate<0.05'],
+        http_req_duration: ['p(95)<500'],
+      },
+    };
+
+    export default function () {
+      const res = http.get('http://<SEU_ALB_DNS>/account');
+      check(res, {
+        'status 200': (r) => r.status === 200,
+        'body não vazio': (r) => r.body.length > 0,
+      });
+      sleep(1);
+    }
