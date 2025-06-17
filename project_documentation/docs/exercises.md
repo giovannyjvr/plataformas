@@ -21,10 +21,17 @@ Além disso, você pode consultar:
 
 
 repositórios usados: 
-https://github.com/giovannyjvr/plataformas
-https://github.com/giovannyjvr/gateway-service
-https://github.com/giovannyjvr/order-service
-https://github.com/giovannyjvr/account-service
-https://github.com/giovannyjvr/exchange-service
-https://github.com/giovannyjvr/p-auth-service
-https://github.com/giovannyjvr/product-service
+[https://github.com/giovannyjvr/plataformas](repositorio principal)
+
+[https://github.com/giovannyjvr/gateway-service](gateway-service)
+
+[https://github.com/giovannyjvr/order-service](order-service)
+
+[https://github.com/giovannyjvr/account-service](account-service)
+
+[https://github.com/giovannyjvr/exchange-service](exchange-service)
+
+[https://github.com/giovannyjvr/p-auth-service](p-auth-service)
+
+[https://github.com/giovannyjvr/product-service](product-service)
+
