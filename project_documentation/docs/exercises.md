@@ -18,3 +18,13 @@ Além disso, você pode consultar:
 - **Manifests Kubernetes**: `k8s/*.yaml` — Deployments, Services e HPAs para cada serviço.  
 - **Testes de carga**: Scripts K6 em `k6/*.js` e resultados do HPA escalando sob carga.  
 - **Relatório de custos**: [costs.md](costs.md) — estimativa de custos mensais no AWS.  
+
+
+repositórios usados: 
+https://github.com/giovannyjvr/plataformas
+https://github.com/giovannyjvr/gateway-service
+https://github.com/giovannyjvr/order-service
+https://github.com/giovannyjvr/account-service
+https://github.com/giovannyjvr/exchange-service
+https://github.com/giovannyjvr/p-auth-service
+https://github.com/giovannyjvr/product-service

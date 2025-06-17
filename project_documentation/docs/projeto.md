@@ -37,7 +37,7 @@ Cada serviço foi empacotado em imagem Docker e publicado no Amazon ECR, implant
 
 Total estimado: **177,85 US\$**
 
-Detalhes em: [`Plano-de-custos.md`](docs/Plano-de-custos.md)
+Detalhes em: [`Plano-de-custos.md`](Plano-de-custos.md)
 
 ---
 
@@ -53,6 +53,7 @@ Detalhes em: [`Plano-de-custos.md`](docs/Plano-de-custos.md)
 ## Documentação Complementar
 
 * **Exercícios Individuais** (1–5): [`docs/exercises.md`](docs/exercises.md)
+* **Detalhes Exe2**: [`docs/exe1.md`](docs/exe1.md)
 * **Detalhes Exe2**: [`docs/exe2.md`](docs/exe2.md)
 * **Detalhes Exe3**: [`docs/exe3.md`](docs/exe3.md)
 * **Detalhes Exe4**: [`docs/exe4.md`](docs/exe4.md)

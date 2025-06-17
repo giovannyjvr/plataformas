@@ -10,15 +10,16 @@ theme:
 
 nav:
   - Home: index.md
-  - Auth Service: auth_service.md
-  - Product Service: product_service.md
-  - Portal: portal.md
-  - Order Service: order_service.md
-  - Docker e Kubernetes: docker_k8s.md
-  - Gargalos: gargalos.md
-  - Apresentação: apresentacao.md
-  - FAQ: faq.md
-
+  - Exercícios:
+    - Visão geral: exercises.md
+    - Exercicio 1: exe1.md
+    - Exercicio 2: exe2.md
+    - Exercicio 3: exe3.md
+    - Exercicio 4: exe4.md
+    - Exercicio 5: exe5.md
+  - Projeto:
+    - Status do Projeto: projeto.md
+    - Plano de Custos: Plano-de-custos.md
 plugins:
   - search
 
