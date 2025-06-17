@@ -13,10 +13,10 @@
       
       
       
-        <link rel="prev" href="../portal/">
+        <link rel="prev" href="../exercises/">
       
       
-        <link rel="next" href="../docker_k8s/">
+        <link rel="next" href="../exe2/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Order Service - Projeto Microserviços Insper</title>
+        <title>Exercicio 1 - Projeto Microserviços Insper</title>
       
     
     
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#order-service" class="md-skip">
+        <a href="#exercicio-1-account-service" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Order Service
+              Exercicio 1
             
           </span>
         </div>
@@ -249,15 +249,55 @@
       
   
   
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Exercícios
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Exercícios
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
   
   
     <li class="md-nav__item">
-      <a href="../auth_service/" class="md-nav__link">
+      <a href="../exercises/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Auth Service
+    Visão geral
     
   </span>
   
@@ -266,53 +306,10 @@
     </li>
   
 
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../product_service/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Product Service
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../portal/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Portal
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
+              
+            
+              
+                
   
   
     
@@ -332,7 +329,7 @@
   
   
   <span class="md-ellipsis">
-    Order Service
+    Exercicio 1
     
   </span>
   
@@ -345,7 +342,7 @@
   
   
   <span class="md-ellipsis">
-    Order Service
+    Exercicio 1
     
   </span>
   
@@ -368,64 +365,73 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#descricao-geral" class="md-nav__link">
+  <a href="#objetivo" class="md-nav__link">
     <span class="md-ellipsis">
-      Descrição Geral
+      Objetivo
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#tecnologias-e-dependencias" class="md-nav__link">
+  <a href="#tecnologias-e-ferramentas" class="md-nav__link">
     <span class="md-ellipsis">
-      Tecnologias e Dependências
+      Tecnologias e Ferramentas
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#endpoints-disponiveis" class="md-nav__link">
+  <a href="#estrutura-do-projeto" class="md-nav__link">
     <span class="md-ellipsis">
-      Endpoints Disponíveis
+      Estrutura do Projeto
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Endpoints Disponíveis">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#principais-componentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Principais Componentes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principais Componentes">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#post-order" class="md-nav__link">
+  <a href="#model-account" class="md-nav__link">
     <span class="md-ellipsis">
-      POST /order
+      Model (Account)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-order" class="md-nav__link">
+  <a href="#repository" class="md-nav__link">
     <span class="md-ellipsis">
-      GET /order
+      Repository
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-orderid" class="md-nav__link">
+  <a href="#service" class="md-nav__link">
     <span class="md-ellipsis">
-      GET /order/{id}
+      Service
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#delete-orderid" class="md-nav__link">
+  <a href="#controller" class="md-nav__link">
     <span class="md-ellipsis">
-      DELETE /order/{id}
+      Controller
     </span>
   </a>
   
@@ -437,9 +443,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#exemplos-de-uso" class="md-nav__link">
+  <a href="#migracoes-de-banco-flyway" class="md-nav__link">
     <span class="md-ellipsis">
-      Exemplos de Uso
+      Migrações de Banco (Flyway)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kubernetes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testes-de-carga-k6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testes de Carga (k6)
     </span>
   </a>
   
@@ -452,25 +485,103 @@
     </li>
   
 
-    
-      
-      
+              
+            
+              
+                
   
   
   
   
     <li class="md-nav__item">
-      <a href="../docker_k8s/" class="md-nav__link">
+      <a href="../exe2/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Docker e Kubernetes
+    Exercicio 2
     
   </span>
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exe3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Exercicio 3
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exe4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Exercicio 4
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exe5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Exercicio 5
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -481,13 +592,51 @@
   
   
   
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Projeto
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Projeto
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
-      <a href="../gargalos/" class="md-nav__link">
+      <a href="../projeto/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Gargalos
+    Status do Projeto
     
   </span>
   
@@ -496,20 +645,21 @@
     </li>
   
 
-    
-      
-      
+              
+            
+              
+                
   
   
   
   
     <li class="md-nav__item">
-      <a href="../apresentacao/" class="md-nav__link">
+      <a href="../Plano-de-custos/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Apresentação
+    Plano de Custos
     
   </span>
   
@@ -518,25 +668,11 @@
     </li>
   
 
-    
+              
+            
+          </ul>
+        </nav>
       
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../faq/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    FAQ
-    
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -568,64 +704,73 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#descricao-geral" class="md-nav__link">
+  <a href="#objetivo" class="md-nav__link">
     <span class="md-ellipsis">
-      Descrição Geral
+      Objetivo
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#tecnologias-e-dependencias" class="md-nav__link">
+  <a href="#tecnologias-e-ferramentas" class="md-nav__link">
     <span class="md-ellipsis">
-      Tecnologias e Dependências
+      Tecnologias e Ferramentas
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#endpoints-disponiveis" class="md-nav__link">
+  <a href="#estrutura-do-projeto" class="md-nav__link">
     <span class="md-ellipsis">
-      Endpoints Disponíveis
+      Estrutura do Projeto
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Endpoints Disponíveis">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#principais-componentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Principais Componentes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principais Componentes">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#post-order" class="md-nav__link">
+  <a href="#model-account" class="md-nav__link">
     <span class="md-ellipsis">
-      POST /order
+      Model (Account)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-order" class="md-nav__link">
+  <a href="#repository" class="md-nav__link">
     <span class="md-ellipsis">
-      GET /order
+      Repository
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get-orderid" class="md-nav__link">
+  <a href="#service" class="md-nav__link">
     <span class="md-ellipsis">
-      GET /order/{id}
+      Service
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#delete-orderid" class="md-nav__link">
+  <a href="#controller" class="md-nav__link">
     <span class="md-ellipsis">
-      DELETE /order/{id}
+      Controller
     </span>
   </a>
   
@@ -637,9 +782,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#exemplos-de-uso" class="md-nav__link">
+  <a href="#migracoes-de-banco-flyway" class="md-nav__link">
     <span class="md-ellipsis">
-      Exemplos de Uso
+      Migrações de Banco (Flyway)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kubernetes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testes-de-carga-k6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testes de Carga (k6)
     </span>
   </a>
   
@@ -664,89 +836,114 @@
   
 
 
-<h1 id="order-service">Order Service<a class="headerlink" href="#order-service" title="Permanent link">&para;</a></h1>
-<p><strong>Peso no checkpoint:</strong>  (Exercício 3)</p>
-<p>O Order Service gerencia pedidos (orders) e possui endpoints para criar, listar, buscar e excluir pedidos.</p>
-<hr />
-<h2 id="descricao-geral">Descrição Geral<a class="headerlink" href="#descricao-geral" title="Permanent link">&para;</a></h2>
+<h1 id="exercicio-1-account-service">Exercício 1 – Account Service<a class="headerlink" href="#exercicio-1-account-service" title="Permanent link">&para;</a></h1>
+<h2 id="objetivo">Objetivo<a class="headerlink" href="#objetivo" title="Permanent link">&para;</a></h2>
+<p>O primeiro exercício consistiu em desenvolver o microserviço <strong>Account Service</strong>, responsável pelo gerenciamento de clientes (contas) de forma simples, expondo endpoints REST para criação e consulta de contas.</p>
+<h2 id="tecnologias-e-ferramentas">Tecnologias e Ferramentas<a class="headerlink" href="#tecnologias-e-ferramentas" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Linguagem/Framework:</strong> Java 17 + Spring Boot  </li>
-<li><strong>Ponto de entrada:</strong><br />
-<code>exercise3-order-service/src/main/java/com/insper/orderservice/OrderServiceApplication.java</code>  </li>
-<li><strong>Persistência:</strong> In-Memory ou banco configurado  </li>
-<li><strong>Porta:</strong> 8004 (ou conforme <code>application.properties</code>)</li>
+<li><strong>Java 21</strong> e <strong>Spring Boot 3.x</strong></li>
+<li><strong>Spring Data JPA</strong> para persistência</li>
+<li><strong>PostgreSQL</strong> (em Kubernetes) como banco de dados relacional</li>
+<li><strong>Flyway</strong> para migrações de esquema</li>
+<li><strong>Docker</strong> para empacotamento da imagem</li>
+<li><strong>Kubernetes</strong> (manifests) para deploy</li>
+<li><strong>HPA</strong> para autoescalonamento baseado em CPU</li>
+<li><strong>k6</strong> para testes de carga</li>
 </ul>
-<hr />
-<h2 id="tecnologias-e-dependencias">Tecnologias e Dependências<a class="headerlink" href="#tecnologias-e-dependencias" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Spring Boot Starter Web  </li>
-<li>Jackson Databind  </li>
-<li>Maven</li>
-</ul>
-<p>Trecho relevante do <code>pom.xml</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">&lt;dependencies&gt;</span>
-<span class="w">  </span><span class="nt">&lt;dependency&gt;</span>
-<span class="w">    </span><span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
-<span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="nt">&lt;/artifactId&gt;</span>
-<span class="w">  </span><span class="nt">&lt;/dependency&gt;</span>
-<span class="nt">&lt;/dependencies&gt;</span>
+<h2 id="estrutura-do-projeto">Estrutura do Projeto<a class="headerlink" href="#estrutura-do-projeto" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>account-service/
+├── src/main/java/store/account/          # Código-fonte Java
+│   ├── AccountApplication.java         # Classe principal
+│   ├── controller/AccountController.java
+│   ├── model/Account.java               
+│   ├── repository/AccountRepository.java
+│   ├── service/AccountService.java     
+│   └── exception/ResourceNotFoundException.java
+├── src/main/resources/
+│   ├── application.yml                  # Configurações (DB, Flyway)
+│   └── db/migration/V1__create_account_table.sql
+├── Dockerfile                           # Empacotamento da aplicação
+└── k8s/
+    ├── account.yaml                     # Deployment e Service
+    └── hpa-account.yaml                 # HorizontalPodAutoscaler
 </code></pre></div>
 
-<hr />
-<h2 id="endpoints-disponiveis">Endpoints Disponíveis<a class="headerlink" href="#endpoints-disponiveis" title="Permanent link">&para;</a></h2>
-<h3 id="post-order">POST /order<a class="headerlink" href="#post-order" title="Permanent link">&para;</a></h3>
+<h2 id="principais-componentes">Principais Componentes<a class="headerlink" href="#principais-componentes" title="Permanent link">&para;</a></h2>
+<h3 id="model-account">Model (Account)<a class="headerlink" href="#model-account" title="Permanent link">&para;</a></h3>
+<p>Entidade <code>Account</code> com os campos:</p>
 <ul>
-<li><strong>Descrição:</strong> cria um novo pedido.  </li>
-<li><strong>URL:</strong> <code>http://localhost:8004/order</code>  </li>
-<li><strong>Headers:</strong><br />
-<code>Content-Type: application/json</code>  </li>
-<li><strong>Body (JSON):</strong>
-  <code>json
-  {
-    "productId": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
-    "quantity": 3,
-    "userId": "fulano"
-  }</code>  </li>
-<li><strong>Respostas possíveis:</strong>  </li>
-<li><strong>201 Created</strong> (pedido criado)  </li>
-<li><strong>400 Bad Request</strong> (dados inválidos)</li>
+<li><code>id</code> (Long, chave primária)</li>
+<li><code>name</code> (String)</li>
+<li><code>email</code> (String)</li>
 </ul>
-<h3 id="get-order">GET /order<a class="headerlink" href="#get-order" title="Permanent link">&para;</a></h3>
+<h3 id="repository">Repository<a class="headerlink" href="#repository" title="Permanent link">&para;</a></h3>
+<p>Interface <code>AccountRepository</code> estende <code>JpaRepository&lt;Account, Long&gt;</code>, fornecendo CRUD básico.</p>
+<h3 id="service">Service<a class="headerlink" href="#service" title="Permanent link">&para;</a></h3>
+<p>Classe <code>AccountService</code> encapsula lógica de negócio:</p>
 <ul>
-<li><strong>URL:</strong> <code>http://localhost:8004/order</code>  </li>
-<li><strong>Descrição:</strong> lista todos os pedidos.  </li>
-<li><strong>Resposta (200 OK):</strong> Lista de objetos JSON com todos os pedidos.</li>
+<li><code>findAll()</code> retorna todas as contas</li>
+<li><code>findById(id)</code> retorna conta por ID ou lança <code>ResourceNotFoundException</code></li>
+<li><code>create(Account)</code> persiste nova conta</li>
 </ul>
-<h3 id="get-orderid">GET /order/{id}<a class="headerlink" href="#get-orderid" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>URL:</strong> <code>http://localhost:8004/order/{id}</code>  </li>
-<li><strong>Descrição:</strong> retorna um pedido específico.  </li>
-<li><strong>Respostas:</strong>  </li>
-<li><strong>200 OK</strong> com JSON do pedido  </li>
-<li><strong>404 Not Found</strong> se não existir</li>
-</ul>
-<h3 id="delete-orderid">DELETE /order/{id}<a class="headerlink" href="#delete-orderid" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>URL:</strong> <code>http://localhost:8004/order/{id}</code>  </li>
-<li><strong>Descrição:</strong> exclui um pedido pelo ID.  </li>
-<li><strong>Respostas:</strong>  </li>
-<li><strong>204 No Content</strong> (pedido excluído)  </li>
-<li><strong>404 Not Found</strong>  </li>
-</ul>
-<hr />
-<h2 id="exemplos-de-uso">Exemplos de Uso<a class="headerlink" href="#exemplos-de-uso" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Criar pedido</span>
-curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:8004/order<span class="w">   </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w">   </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;productId&quot;:&quot;f47ac10b-58cc-4372-a567-0e02b2c3d479&quot;,&quot;quantity&quot;:3,&quot;userId&quot;:&quot;fulano&quot;}&#39;</span>
-
-<span class="c1"># Listar pedidos</span>
-curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://localhost:8004/order
-
-<span class="c1"># Buscar pedido por ID</span>
-curl<span class="w"> </span>-X<span class="w"> </span>GET<span class="w"> </span>http://localhost:8004/order/abc123-def456
-
-<span class="c1"># Excluir pedido</span>
-curl<span class="w"> </span>-X<span class="w"> </span>DELETE<span class="w"> </span>http://localhost:8004/order/abc123-def456
+<h3 id="controller">Controller<a class="headerlink" href="#controller" title="Permanent link">&para;</a></h3>
+<p>Classe <code>AccountController</code> expõe endpoints:</p>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Endpoint</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td><code>/account</code></td>
+<td>Lista todas as contas</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/account/{id}</code></td>
+<td>Consulta conta por ID</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/account</code></td>
+<td>Cria nova conta</td>
+</tr>
+</tbody>
+</table>
+<p>As requisições e respostas usam JSON.</p>
+<h2 id="migracoes-de-banco-flyway">Migrações de Banco (Flyway)<a class="headerlink" href="#migracoes-de-banco-flyway" title="Permanent link">&para;</a></h2>
+<p>O script <code>V1__create_account_table.sql</code> cria a tabela <code>account</code> com colunas (<code>id</code>, <code>name</code>, <code>email</code>). Flyway executa a migração automaticamente na inicialização.</p>
+<h2 id="docker">Docker<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h2>
+<p>O <code>Dockerfile</code> baseia-se em <code>openjdk:21-slim</code>, copia o JAR gerado pelo Maven e define o comando de execução:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">openjdk:21-slim</span>
+<span class="k">COPY</span><span class="w"> </span>target/*.jar<span class="w"> </span>app.jar
+<span class="k">ENTRYPOINT</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;java&quot;</span><span class="p">,</span><span class="s2">&quot;-jar&quot;</span><span class="p">,</span><span class="s2">&quot;/app.jar&quot;</span><span class="p">]</span>
 </code></pre></div>
+
+<h2 id="kubernetes">Kubernetes<a class="headerlink" href="#kubernetes" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Deployment</strong> (<code>account.yaml</code>): define 1 réplica inicialmente, requests/limits de CPU/memória e variáveis de ambiente para conexão com PostgreSQL.</li>
+<li><strong>Service</strong>: tipo <code>LoadBalancer</code>, expõe a porta 8080.</li>
+<li><strong>HPA</strong> (<code>hpa-account.yaml</code>): escala entre 1 e 5 pods com meta de 50% de uso de CPU.</li>
+</ul>
+<h2 id="testes-de-carga-k6">Testes de Carga (k6)<a class="headerlink" href="#testes-de-carga-k6" title="Permanent link">&para;</a></h2>
+<p>Script <code>loadtest.js</code> com:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">http</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;k6/http&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">check</span><span class="p">,</span><span class="w"> </span><span class="nx">sleep</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;k6&#39;</span><span class="p">;</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nx">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">vus</span><span class="o">:</span><span class="w"> </span><span class="mf">20</span><span class="p">,</span><span class="w"> </span><span class="nx">duration</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;30s&#39;</span><span class="p">};</span>
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;http://&lt;ELB_URL&gt;:8080/account&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">check</span><span class="p">(</span><span class="nx">res</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s1">&#39;status 200&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">r</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">status</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">200</span><span class="w"> </span><span class="p">});</span>
+<span class="w">  </span><span class="nx">sleep</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Executando <code>k6 run loadtest.js</code> mostrou que o serviço responde dentro do SLA (p95 &lt; 500ms) e a HPA escalou conforme esperado.</p>
+<hr />
+<p><sub>Este documento faz parte da documentação geral dos Exercícios Individuais. Para detalhes dos demais exercícios, veja <code>docs/exercises.md</code>.</sub></p>
 
 
 
