@@ -23,3 +23,4 @@ __pycache__/
 # Outras pastas locais
 env/
 k6/
+fome/k6/product-load.json
