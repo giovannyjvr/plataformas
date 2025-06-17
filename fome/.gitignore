@@ -11,4 +11,4 @@ __pycache__/
 .venv/
 grafana/
 aaa/
-k6
+k6/
