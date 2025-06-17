@@ -2,19 +2,29 @@
 
 **Aluno:** Giovanny Russo
 
-## Visão Geral do Projeto
+---
 
-Este repositório reúne todos os **Exercícios Individuais** (1–5) solicitados no curso de Plataforma.  
-Abaixo, você encontrará:
-- Descrição de cada exercício e seus endpoints  
-- Código-fonte de cada microserviço  
-- Pipeline de CI/CD (Jenkins)  
-- Manifestos Kubernetes (Orquestração)  
-- Documentação geral, gargalos, apresentação e vídeo de demonstração
+## Visão Geral do Repositório
+
+Este repositório centraliza todos os trabalhos desenvolvidos no curso de Plataforma:
+
+1. **Exercícios Individuais** (1–5)
+   Detalhamento em: [exercises.md](docs/exercises.md)
+2. **Projeto Integrador "Fome"**
+   Estado atual descrito em: [project-status.md](docs/project-status.md)
+3. **Relatório de Custos**
+   Estimativa de custos mensais no AWS: [cost-report.md](docs/cost-report.md)
 
 ---
-## Links dos Repositórios
 
-- **Repositório principal (este):**  
-    https://github.com/giovannyjvr/plataformas  
-    
+## Como Navegar
+
+* `docs/exercises.md` — detalhes e endpoints implementados em cada exercício individual.
+* `docs/project-status.md` — arquitetura Kubernetes, microserviços, HPA e escalabilidade.
+  **Observação:** Faltam as etapas de CI/CD e PASS.
+* `docs/cost-report.md` — simulação de custos no AWS Cost Explorer e Pricing Calculator.
+
+
+---
+
+© 2025 Giovanny Russo — Todos os direitos reservados
