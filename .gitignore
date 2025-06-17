@@ -1,13 +1,25 @@
-site/
-env/
-.env/
-.cache/
+# Diretórios de configuração e cache
 .vscode/
-target/
-volume/
-__pycache__/
-
-.env
-.venv/
+.cache/
 grafana/
 aaa/
+
+# Arquivos de ambiente
+.env
+.env/
+.venv/
+
+# Artefatos de build
+target/
+volume/
+site/
+
+# Volumes Docker (se você usar esse nome)
+volumes/
+
+# Python bytecode
+__pycache__/
+
+# Outras pastas locais
+env/
+k6/
